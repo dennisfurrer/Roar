@@ -16,6 +16,14 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/roars', (req, res) => {
+    roars
+        .find()
+        .then(roars => {
+            res.json(roars);
+        });
+});
+
 function isValidRoar(roar) {
     return roar.name && roar.name.toString().trim() !== '' &&
     roar.content && roar.content.toString().trim() !== '';

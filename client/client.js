@@ -29,7 +29,10 @@ form.addEventListener('submit', (event) => {
     }).then(response => response.json())
     .then(createdRoar => {
         console.log(createdRoar);
-        
+        form.reset();
+        loadingElement.style.display = 'none';
+        form.style.display = '';
+
     });
 
 });
