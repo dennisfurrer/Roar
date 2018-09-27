@@ -3,7 +3,7 @@ console.log('Hello World');
 const form = document.querySelector('form');
 const loadingElement = document.querySelector('.loading');
 const roarsElement = document.querySelector('.roars');
-const API_URL = 'http://localhost:5000/roars';
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/roars' : 'https://roar-api.now.sh/roars';
 
 loadingElement.style.display = '';
 

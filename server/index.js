@@ -5,7 +5,8 @@ const Filter = require('bad-words');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
-const db = monk('localhost/roardb');
+
+const db = monk(process.env.MONGO_URI || 'localhost/roardb');
 const roars = db.get('roars');
 const filter = new Filter();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'Roarer'
+        message: 'Roar'
     });
 });
 
