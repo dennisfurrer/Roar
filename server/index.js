@@ -1,7 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const monk = require('monk');
 
 const app = express();
+
+const db = monk('localhost/roardb');
+const roars = db.get('roars');
 
 app.use(cors());
 app.use(express.json());
@@ -19,11 +23,16 @@ function isValidRoar(roar) {
 
 app.post('/roars', (req, res) => {
     if (isValidRoar(req.body)) {
-        // insert into db ..
         const roar = {
             name: req.body.name.toString(),
             content: req.body.content.toString()
         };
+
+        roars
+            .insert(roar)
+            .then(createdRoar => {
+                res.json(createdRoar);
+            });
     } else {
         res.status(422);
         res.json({
