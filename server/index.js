@@ -12,8 +12,24 @@ app.get('/', (req, res) => {
     });
 });
 
+function isValidRoar(roar) {
+    return roar.name && roar.name.toString().trim() !== '' &&
+    roar.content && roar.content.toString().trim() !== '';
+}
+
 app.post('/roars', (req, res) => {
-    console.log(req.body);
+    if (isValidRoar(req.body)) {
+        // insert into db ..
+        const roar = {
+            name: req.body.name.toString(),
+            content: req.body.content.toString()
+        };
+    } else {
+        res.status(422);
+        res.json({
+            message: 'Name and Content are required fields!'
+        });
+    }
 });
 
 app.listen(5000, () => {
