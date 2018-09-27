@@ -32,19 +32,18 @@ form.addEventListener('submit', (event) => {
         }
     }).then(response => response.json())
     .then(createdRoar => {
-        console.log(createdRoar);
         form.reset();
         loadingElement.style.display = 'none';
         form.style.display = '';
-
+        listAllRoars();
     });
 });
 
 function listAllRoars() {
+    roarsElement.innerHTML = '';
     fetch(API_URL)
         .then(response => response.json())
         .then(roars => {
-            console.log(roars);
             roars.reverse();
             roars.forEach(roar => {
                 const div = document.createElement('div');
