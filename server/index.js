@@ -25,7 +25,8 @@ app.post('/roars', (req, res) => {
     if (isValidRoar(req.body)) {
         const roar = {
             name: req.body.name.toString(),
-            content: req.body.content.toString()
+            content: req.body.content.toString(),
+            created: new Date()
         };
 
         roars
