@@ -1,5 +1,3 @@
-console.log('Hello World');
-
 const form = document.querySelector('form');
 const loadingElement = document.querySelector('.loading');
 const roarsElement = document.querySelector('.roars');
