@@ -2,9 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const monk = require('monk');
 const Filter = require('bad-words');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
-
 const db = monk('localhost/roardb');
 const roars = db.get('roars');
 const filter = new Filter();
@@ -30,6 +30,11 @@ function isValidRoar(roar) {
     return roar.name && roar.name.toString().trim() !== '' &&
     roar.content && roar.content.toString().trim() !== '';
 }
+
+app.use(rateLimit({
+    windowsMs: 30 * 1000, // 30 secs
+    max: 1
+}));
 
 app.post('/roars', (req, res) => {
     if (isValidRoar(req.body)) {
