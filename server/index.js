@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const monk = require('monk');
+const Filter = require('bad-words');
 
 const app = express();
 
 const db = monk('localhost/roardb');
 const roars = db.get('roars');
+const filter = new Filter();
 
 app.use(cors());
 app.use(express.json());
@@ -32,8 +34,8 @@ function isValidRoar(roar) {
 app.post('/roars', (req, res) => {
     if (isValidRoar(req.body)) {
         const roar = {
-            name: req.body.name.toString(),
-            content: req.body.content.toString(),
+            name: filter.clean(req.body.name.toString()),
+            content: filter.clean(req.body.content.toString()),
             created: new Date()
         };
 
